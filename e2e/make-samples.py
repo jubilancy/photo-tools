@@ -34,6 +34,7 @@ photo.save(f"{out}/photo.png")
 photo.save(f"{out}/photo.webp", quality=85)
 
 Image.new("RGB", (1, 1), (200, 100, 50)).save(f"{out}/tiny.png")
+Image.new("RGB", (200, 50), (255, 0, 0)).save(f"{out}/mark-wide.png")
 
 t = Image.new("RGBA", (400, 300), (0, 0, 0, 0))
 d = ImageDraw.Draw(t)
