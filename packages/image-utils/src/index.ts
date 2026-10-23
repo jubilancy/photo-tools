@@ -4,5 +4,6 @@ export * from './encode';
 export * from './jpegExif';
 export * from './names';
 export * from './pool';
+export * from './resample';
 export * from './workerHost';
 export * from './zip';
