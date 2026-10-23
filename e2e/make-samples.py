@@ -35,6 +35,10 @@ photo.save(f"{out}/photo.webp", quality=85)
 
 Image.new("RGB", (1, 1), (200, 100, 50)).save(f"{out}/tiny.png")
 Image.new("RGB", (200, 50), (255, 0, 0)).save(f"{out}/mark-wide.png")
+quad = Image.new("RGB", (40, 20))
+for (x0, y0, colour) in [(0, 0, (255, 0, 0)), (20, 0, (0, 255, 0)), (0, 10, (0, 0, 255)), (20, 10, (255, 255, 0))]:
+    quad.paste(colour, (x0, y0, x0 + 20, y0 + 10))
+quad.save(f"{out}/quad.png")
 
 t = Image.new("RGBA", (400, 300), (0, 0, 0, 0))
 d = ImageDraw.Draw(t)
