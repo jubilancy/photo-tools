@@ -34,14 +34,15 @@ export interface Probe {
 export async function probe(page: Page, bytes: Uint8Array, points: [number, number][] = []): Promise<Probe> {
   return page.evaluate(
     async ({ data, pts }) => {
-      const bmp = await createImageBitmap(new Blob([new Uint8Array(data)]), { imageOrientation: 'from-image' });
+      const blob = await (await fetch(`data:application/octet-stream;base64,${data}`)).blob();
+      const bmp = await createImageBitmap(blob, { imageOrientation: 'from-image' });
       const c = new OffscreenCanvas(bmp.width, bmp.height);
       const ctx = c.getContext('2d')!;
       ctx.drawImage(bmp, 0, 0);
       const pixels = pts.map(([fx, fy]) => [...ctx.getImageData(Math.min(bmp.width - 1, Math.floor(fx * bmp.width)), Math.min(bmp.height - 1, Math.floor(fy * bmp.height)), 1, 1).data]);
       return { width: bmp.width, height: bmp.height, pixels };
     },
-    { data: [...bytes], pts: points },
+    { data: Buffer.from(bytes).toString('base64'), pts: points },
   );
 }
 

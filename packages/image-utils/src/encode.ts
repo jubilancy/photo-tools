@@ -12,7 +12,7 @@ export interface EncodeOptions {
   background?: string;
 }
 
-function flatten(canvas: AnyCanvas, background: string): AnyCanvas {
+export function flatten(canvas: AnyCanvas, background: string): AnyCanvas {
   const out = createCanvas(canvas.width, canvas.height);
   const ctx = get2d(out);
   ctx.fillStyle = background;

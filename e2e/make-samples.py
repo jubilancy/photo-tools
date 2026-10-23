@@ -4,7 +4,7 @@ import random
 import struct
 import sys
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 out = sys.argv[1] if len(sys.argv) > 1 else ".e2e-samples"
 os.makedirs(out + "/dup", exist_ok=True)
@@ -55,6 +55,24 @@ random.seed(1)
 with open(f"{out}/corrupt.jpg", "wb") as f:
     f.write(b"\xff\xd8\xff\xe0" + bytes(random.randrange(256) for _ in range(500)))
 open(f"{out}/empty.png", "wb").close()
+
+# Photo-like texture for compression tests: blurred colour noise plus fine grain.
+def natural(w, h):
+    layers = []
+    for seed_sigma, blur in ((90, 40), (70, 12), (40, 3)):
+        n = Image.effect_noise((w, h), seed_sigma).filter(ImageFilter.GaussianBlur(blur))
+        layers.append(n)
+    r = ImageChops.add(layers[0], layers[1], 1.2, -30)
+    g = ImageChops.add(layers[1], layers[2], 1.2, -30)
+    b = ImageChops.add(layers[2], layers[0], 1.2, -30)
+    img = Image.merge("RGB", (r, g, b))
+    grain = Image.effect_noise((w, h), 14).convert("RGB")
+    return ImageChops.add(img, grain, 1.0, -128)
+
+
+nat = natural(1600, 1200)
+nat.save(f"{out}/natural.jpg", quality=95)
+nat.save(f"{out}/natural.png")
 
 big = Image.linear_gradient("L").resize((10000, 8000)).convert("RGB")
 big.save(f"{out}/huge.jpg", quality=70)
