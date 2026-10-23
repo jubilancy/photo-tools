@@ -5,7 +5,7 @@ export interface ToolInfo {
   group: 'Images' | 'Time' | 'Media' | 'Data';
 }
 
-/** Single source of truth for the landing page. Rename a tool by editing `name` here and in the app. */
+/** Tools shown on the landing page. Rename a tool by editing `name` here and in the app. */
 export const TOOLS: readonly ToolInfo[] = [
   { slug: 'grayscale-images', name: 'Grayscale Images', summary: 'Turn photos black and white with an adjustable intensity.', group: 'Images' },
   { slug: 'bulk-watermark', name: 'Bulk Watermark', summary: 'Stamp a text or image watermark on many pictures at once.', group: 'Images' },
@@ -15,8 +15,4 @@ export const TOOLS: readonly ToolInfo[] = [
   { slug: 'image-compressor', name: 'Image Compressor', summary: 'Shrink JPEG, PNG and WebP files and see the savings.', group: 'Images' },
   { slug: 'bulk-image-crop', name: 'Bulk Image Crop', summary: 'Crop many images to one aspect ratio or exact size.', group: 'Images' },
   { slug: 'bulk-blur-faces', name: 'Bulk Blur Faces', summary: 'Find faces on-device and blur or pixelate them.', group: 'Media' },
-  { slug: 'bulk-background-remover', name: 'Bulk Background Remover', summary: 'Cut out subjects with an on-device model.', group: 'Media' },
-  { slug: 'passport-photo-maker', name: 'Passport Photo Maker', summary: 'Crop to an official photo size and print a sheet.', group: 'Media' },
-  { slug: 'auto-jump-cutter', name: 'Auto Jump Cutter', summary: 'Remove or speed up silent parts of a video.', group: 'Media' },
-  { slug: 'query-csv', name: 'Query CSV', summary: 'Run SQL on a CSV file with DuckDB.', group: 'Data' },
 ];

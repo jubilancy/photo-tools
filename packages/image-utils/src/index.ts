@@ -7,3 +7,4 @@ export * from './pool';
 export * from './resample';
 export * from './workerHost';
 export * from './zip';
+export * from './netGuard';

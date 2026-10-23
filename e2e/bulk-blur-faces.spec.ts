@@ -110,3 +110,19 @@ test('photos without faces pass through; corrupt files fail alone; names stay un
   await expect(page.getByRole('button', { name: /^Blur faces in/ })).toBeEnabled({ timeout: 30_000 });
   await expect(page.locator('li.file[data-status=cancelled]').first()).toBeVisible();
 });
+
+test('never phones home: no external request even after the detector has run for over a minute', async ({ page, context }) => {
+  test.skip(!hasFace, 'portrait.jpg was not downloaded (offline)');
+  test.setTimeout(150_000);
+  const external: string[] = [];
+  await context.route(/^https?:\/\/(?!localhost)/, (route) => {
+    external.push(route.request().url());
+    return route.abort();
+  });
+  await page.setInputFiles('input[type=file]', sample('portrait.jpg'));
+  await waitForDetection(page);
+  await expect(page.getByTestId('face-count')).toHaveText('1 found');
+  // MediaPipe's own logger flushes every 60 s; the guard must have stopped it before the network.
+  await page.waitForTimeout(70_000);
+  expect(external).toEqual([]);
+});
