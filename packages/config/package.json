@@ -1,0 +1,16 @@
+{
+  "name": "@tools/config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./vite.d.ts",
+      "default": "./vite.mjs"
+    }
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "6.1.2",
+    "vite": "8.3.5"
+  }
+}

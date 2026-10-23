@@ -1,0 +1,27 @@
+{
+  "name": "@tools/image-compressor",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@tools/image-utils": "workspace:*",
+    "@tools/ui": "workspace:*",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "@jsquash/jpeg": "1.6.0",
+    "@jsquash/oxipng": "2.3.0",
+    "@jsquash/webp": "1.5.0"
+  },
+  "devDependencies": {
+    "@tools/config": "workspace:*",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "vite": "8.3.5"
+  }
+}
