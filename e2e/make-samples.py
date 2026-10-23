@@ -76,4 +76,11 @@ nat.save(f"{out}/natural.png")
 
 big = Image.linear_gradient("L").resize((10000, 8000)).convert("RGB")
 big.save(f"{out}/huge.jpg", quality=70)
+# Face photo for the face-blur tests: MediaPipe's own sample image (test input only, never bundled).
+try:
+    import urllib.request
+
+    urllib.request.urlretrieve("https://storage.googleapis.com/mediapipe-assets/portrait.jpg", f"{out}/portrait.jpg")
+except Exception as err:  # offline: the face tests skip themselves
+    print("could not download portrait.jpg:", err)
 print("samples in", out)
